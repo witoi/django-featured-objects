@@ -13,7 +13,7 @@ Django app for making any object featured
 
 ## Testing
 
-    python run_tests.py
+    python setup.py
 
 ## Configuration
 
