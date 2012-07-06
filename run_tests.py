@@ -9,9 +9,9 @@ def main():
             'featured',
         ),
         DATABASE_ENGINE='sqlite3',
-        URL_CONF = 'tests_urls',
+        ROOT_URLCONF = 'tests_urls',
     )
-
+    
     # Fire off the tests
     call_command('test', 'featured')
 

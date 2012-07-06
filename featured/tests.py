@@ -1,9 +1,10 @@
-from django.contrib.auth.models import User
-from django.db import IntegrityError
 from django.test import TestCase
-from django.core.urlresolvers import reverse
+from django.db import IntegrityError
+from django.http import Http404
+from django.contrib.auth.models import User
 
 from featured.models import Featured, Category, get_featured_queryset_for
+from featured.views import FeaturedListView
 
 
 class FeaturedModelTest(TestCase):
@@ -58,28 +59,59 @@ class CategoryModelTest(TestCase):
         self.assertTrue(category.active)
 
 
-class CategoryFeaturedTest(object):
+class CategoryFeaturedTest(TestCase):
     def setUp(self):
-        self.category = Category.objects.create(slug='category')
+        self.category = Category.objects.create(slug='category-slug', active=True)
         self.user1 = User.objects.create(username='joe1')
         self.user2= User.objects.create(username='joe2')
         self.user3 = User.objects.create(username='joe3')
         Featured.objects.create(content_object=self.user1, category=self.category)
         Featured.objects.create(content_object=self.user2, category=self.category)
-        self.url = reverse('featured_category_list', kwargs={'slug': self.category.slug, 'model': 'auth.user'})
 
-    def test_get_inactive(self):
-        response = self.client.get(self.url)
-
-        self.assertEqual(404, response.status_code)
-
-    def test_get_active(self):
-        self.category.active = True
+    def test_get_context_data_when_inactive_category(self):
+        self.category.active = False
         self.category.save()
-        manager = get_featured_queryset_for(User, category=self.category)
+        view = FeaturedListView()
+        
+        self.assertRaises(Http404, view.get_context_data, slug=self.category.slug, model='auth.user')
 
-        response = self.client.get(self.url)
+    def test_get_context_data_when_inexistent_category_slug(self):
+        view = FeaturedListView()
+        
+        self.assertRaises(Http404, view.get_context_data, slug='inexistent-cateogry-slug', model='auth.user')
 
-        self.assertEqual(200, response.status_code)
-        self.assertEqual(list(manager.all()), list(response.context['object_list'].all()))
-        self.assertTemplateUsed(response, 'featured/featured_list.html')
+    def test_get_context_data_when_inexistent_model(self):
+        view = FeaturedListView()
+        
+        self.assertRaises(Http404, view.get_context_data, slug=self.category.slug, model='auth.inexistentmodel')
+
+    def test_get_context_data(self):
+        view = FeaturedListView()
+        queryset = get_featured_queryset_for(User, category=self.category)
+
+        context = view.get_context_data(self.category.slug, 'auth.user')
+
+        self.assertEqual(2, len(context))
+        self.assertTrue('object_list' in context)
+        self.assertEqual(list(queryset), list(context['object_list']))
+        self.assertTrue('user_list' in context)
+        self.assertEqual(list(queryset), list(context['user_list']))
+
+    def test_get_category_template_names(self):
+        view = FeaturedListView()
+        view.get_context_data(self.category.slug, 'auth.user')
+        expected = 'featured/%(slug)s_featured_list.html' % {'slug': self.category.slug}
+
+        result = view.get_category_template_name()
+
+        self.assertEqual(expected, result)
+    
+    def test_get_template_names(self):
+        view = FeaturedListView()
+        view.get_context_data(self.category.slug, 'auth.user')
+        expected = ['featured/%(slug)s_featured_list.html' % {'slug': self.category.slug},
+                    'featured/featured_list.html']
+
+        result = view.get_template_names()
+
+        self.assertEqual(expected, result)

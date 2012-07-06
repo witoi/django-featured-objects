@@ -6,7 +6,6 @@ from featured.models import Category, get_featured_queryset_for
 
 
 class FeaturedListView(TemplateView):
-    template_name = 'base.html'
     def get_template_names(self):
         template_name = self.get_category_template_name()
         return [template_name, 'featured/featured_list.html']
@@ -16,7 +15,8 @@ class FeaturedListView(TemplateView):
         model_class = get_object_or_404(ContentType, app_label=app_label, model=model_name).model_class()
         self.category = get_object_or_404(Category, slug=slug, active=True)
         manager = get_featured_queryset_for(model_class, category=self.category)
-        return {'object_list': manager}
+        object_name = '%(model_name)s_list' % {'model_name': model_name}
+        return {'object_list': manager, object_name: manager}
 
     def get_category_template_name(self):
         return 'featured/%(slug)s_featured_list.html' % {'slug': self.category.slug}
