@@ -2,3 +2,4 @@
 *.pot
 *.py[co]
 .*.swp
+build/*
