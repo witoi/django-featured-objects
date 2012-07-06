@@ -12,7 +12,7 @@ class FeaturedAdminForm(forms.ModelForm):
         model = Featured
 
     def __init__(self, *args, **kwargs):
-        super(FeaturedAdminForm, self).__init__(*args,**kwargs)
+        super(FeaturedAdminForm, self).__init__(*args, **kwargs)
         q = Q()
         for app, model in settings.FEATURABLE_MODELS:
             q.add(Q(model=model, app_label=app), Q.OR)
@@ -23,8 +23,10 @@ class FeaturedAdmin(admin.ModelAdmin):
     form = FeaturedAdminForm
     list_display = ['content_object', 'content_type', 'object_id', 'category']
 
+
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['slug', 'active']
+
 
 admin.site.register(Featured, FeaturedAdmin)
 admin.site.register(Category, CategoryAdmin)

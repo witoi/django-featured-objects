@@ -16,7 +16,7 @@ class FeaturedModelTest(TestCase):
 
     def test_create_without_category(self):
         self.assertRaises(IntegrityError, Featured.objects.create, content_object=self.user)
-    
+
     def test_create(self):
         featured = Featured.objects.create(content_object=self.user, category=self.category)
         self.assertIsInstance(featured, Featured)
@@ -49,7 +49,7 @@ class CategoryModelTest(TestCase):
 
     def test_create_same_slug(self):
         Category.objects.create(slug='category')
-        
+
         category = Category(slug='category')
         self.assertRaises(IntegrityError, category.save)
 
@@ -63,7 +63,7 @@ class CategoryFeaturedTest(TestCase):
     def setUp(self):
         self.category = Category.objects.create(slug='category-slug', active=True)
         self.user1 = User.objects.create(username='joe1')
-        self.user2= User.objects.create(username='joe2')
+        self.user2 = User.objects.create(username='joe2')
         self.user3 = User.objects.create(username='joe3')
         Featured.objects.create(content_object=self.user1, category=self.category)
         Featured.objects.create(content_object=self.user2, category=self.category)
@@ -72,17 +72,17 @@ class CategoryFeaturedTest(TestCase):
         self.category.active = False
         self.category.save()
         view = FeaturedListView()
-        
+
         self.assertRaises(Http404, view.get_context_data, slug=self.category.slug, model='auth.user')
 
     def test_get_context_data_when_inexistent_category_slug(self):
         view = FeaturedListView()
-        
+
         self.assertRaises(Http404, view.get_context_data, slug='inexistent-cateogry-slug', model='auth.user')
 
     def test_get_context_data_when_inexistent_model(self):
         view = FeaturedListView()
-        
+
         self.assertRaises(Http404, view.get_context_data, slug=self.category.slug, model='auth.inexistentmodel')
 
     def test_get_context_data(self):
@@ -105,7 +105,7 @@ class CategoryFeaturedTest(TestCase):
         result = view.get_category_template_name()
 
         self.assertEqual(expected, result)
-    
+
     def test_get_template_names(self):
         view = FeaturedListView()
         view.get_context_data(self.category.slug, 'auth.user')
