@@ -4,11 +4,7 @@ from distutils.core import setup
 
 from featured import __version__
 
-try:
-    from run_tests import TestCommand
-    cmdclass = {'test': TestCommand}
-except ImportError:
-    cmdclass = {}
+from run_tests import TestCommand
 
 
 version = ".".join(map(str, __version__))
@@ -35,5 +31,5 @@ setup(
         'Programming Language :: Python',
         'Topic :: Utilities'
     ],
-    cmdclass=cmdclass
+    cmdclass={'test': TestCommand}
 )
