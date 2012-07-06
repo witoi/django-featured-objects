@@ -20,6 +20,7 @@ class Category(models.Model):
     def __unicode__(self):
         return self.slug
 
+
 def get_featured_queryset_for(model, category=None):
     ct = ContentType.objects.get_for_model(model)
     queryset = Featured.objects.filter(content_type=ct)

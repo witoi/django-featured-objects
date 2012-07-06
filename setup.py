@@ -2,11 +2,19 @@
 # -*- coding: utf-8 -*-
 from distutils.core import setup
 
+from run_tests import TestCommand
+
+from featured import __version__
+
+
+version = ".".join(map(str, __version__))
+
+
 setup(
     name='django-featured-objects',
-    version='0.0.1-beta',
+    version=version,
     description='Pluggable search for Django.',
-    author='Pedro Burón',
+    author='Pedro Buron',
     author_email='pedro@witoi.com',
     long_description=open('README.md', 'r').read(),
     url='http://desarrollo.witoi.com/',
@@ -24,4 +32,5 @@ setup(
         'Programming Language :: Python',
         'Topic :: Utilities'
     ],
+    cmdclass={'test': TestCommand}
 )
