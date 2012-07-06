@@ -2,13 +2,16 @@
 # -*- coding: utf-8 -*-
 from distutils.core import setup
 
-from run_tests import TestCommand
-
 from featured import __version__
+
+try:
+    from run_tests import TestCommand
+    cmdclass = {'test': TestCommand}
+except ImportError:
+    cmdclass = {}
 
 
 version = ".".join(map(str, __version__))
-
 
 setup(
     name='django-featured-objects',
@@ -32,5 +35,5 @@ setup(
         'Programming Language :: Python',
         'Topic :: Utilities'
     ],
-    cmdclass={'test': TestCommand}
+    cmdclass=cmdclass
 )
