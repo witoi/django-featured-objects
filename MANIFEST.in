@@ -1,0 +1,3 @@
+include README.md
+include tests_urls.py
+include run_tests.py
