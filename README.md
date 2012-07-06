@@ -14,3 +14,11 @@ Django app for making any object featured
 ## Testing
 
     python run_tests.py
+
+## Configuration
+
+    INSTALLED_APPS += ('featured',)
+    FEATURABLE_MODELS = (
+        ('app_label', 'model_name'), 
+        ('app_label', 'another_model_name')
+    )
