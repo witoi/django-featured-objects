@@ -16,7 +16,7 @@ version = ".".join(map(str, __version__))
 setup(
     name='django-featured-objects',
     version=version,
-    description='Pluggable search for Django.',
+    description='Django app for making any object featured',
     author='Pedro Buron',
     author_email='pedro@witoi.com',
     long_description=open('README.md', 'r').read(),
