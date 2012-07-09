@@ -1,40 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import os
+import sys
 
-from distutils.core import Command
+os.environ['DJANGO_SETTINGS_MODULE'] = 'tests_settings'
 
-
-def run_tests():
-    from django.conf import settings
-    from django.core.management import call_command
-    settings.configure(
-        INSTALLED_APPS=(
-            'django.contrib.contenttypes',
-            'django.contrib.auth',
-            'featured',
-        ),
-        DATABASE_ENGINE='sqlite3',
-        DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3'}},
-        ROOT_URLCONF = 'tests_urls',
-    )
-
-    # Fire off the tests
-    call_command('test', 'featured')
+from django.conf import settings
+from django.test.utils import get_runner
 
 
-class TestCommand(Command):
-    description = 'Run (Django) tests for django-featured-objects app.'
-    user_options = []
-
-    def initialize_options(self):
-        pass
-
-    def finalize_options(self):
-        pass
-
-    def run(self):
-        run_tests()
-
+def run(verbosity=1, interactive=True, **kwargs):
+    TestRunner = get_runner(settings)
+    test_runner = TestRunner(verbosity=1, interactive=True, **kwargs)
+    failures = test_runner.run_tests(['featured'])
+    sys.exit(failures)
 
 if __name__ == '__main__':
-    run_tests()
+    run()

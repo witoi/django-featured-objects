@@ -1,11 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from distutils.core import setup
+from setuptools import setup
 
 from featured import __version__
-
-from run_tests import TestCommand
-
 
 version = ".".join(map(str, __version__))
 
@@ -31,6 +28,6 @@ setup(
         'Programming Language :: Python',
         'Topic :: Utilities'
     ],
-    requires=['Django (>=1.3)'],
-    cmdclass={'test': TestCommand}
+    install_requires=['Django>=1.3'],
+    test_suite='run_tests.run',
 )

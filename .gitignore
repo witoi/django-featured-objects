@@ -5,3 +5,4 @@
 build/*
 dist/*
 MANIFEST
+django_featured_objects.egg-info/
