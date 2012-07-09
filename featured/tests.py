@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.db import IntegrityError
 from django.http import Http404
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
 
 from featured.models import Featured, Category, get_featured_queryset_for
 from featured.views import FeaturedListView
@@ -96,6 +97,28 @@ class CategoryFeaturedTest(TestCase):
         self.assertEqual(list(queryset), list(context['object_list']))
         self.assertTrue('user_list' in context)
         self.assertEqual(list(queryset), list(context['user_list']))
+
+    def test_get_category(self):
+        view = FeaturedListView()
+
+        category_result = view.get_category(self.category.slug)
+
+        self.assertEqual(self.category, category_result)
+
+    def test_get_model(self):
+        view = FeaturedListView()
+        user_content_type = ContentType.objects.get(app_label='auth', model='user').model_class()
+
+        model_class = view.get_model('auth.user')
+
+        self.assertEqual(user_content_type, model_class)
+
+    def test_get_object_name(self):
+        view = FeaturedListView()
+
+        object_name = view.get_object_name('auth.user')
+
+        self.assertEqual('user_list', object_name)
 
     def test_get_category_template_names(self):
         view = FeaturedListView()
