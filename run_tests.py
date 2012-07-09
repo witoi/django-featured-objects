@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from django.conf import settings
-from django.core.management import call_command
 
 from distutils.core import Command
 
 
 def run_tests():
+    from django.conf import settings
+    from django.core.management import call_command
     settings.configure(
         INSTALLED_APPS=(
             'django.contrib.contenttypes',

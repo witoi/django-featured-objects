@@ -31,5 +31,6 @@ setup(
         'Programming Language :: Python',
         'Topic :: Utilities'
     ],
+    requires=['Django (>=1.3)'],
     cmdclass={'test': TestCommand}
 )
