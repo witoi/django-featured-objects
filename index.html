@@ -1,41 +1,50 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="django-featured-objects : Django app for making any object featured " />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>django-featured-objects by witoi</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>django-featured-objects</title>
   </head>
-
   <body>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/witoi/django-featured-objects">View on GitHub</a>
+      <header>
+        <h1>django-featured-objects</h1>
+        <p>Django app for making any object featured </p>
+      </header>
 
-          <h1 id="project_title">django-featured-objects</h1>
-          <h2 id="project_tagline">Django app for making any object featured </h2>
+      <div id="banner">
+        <span id="logo"></span>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/witoi/django-featured-objects/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/witoi/django-featured-objects/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+        <a href="https://github.com/witoi/django-featured-objects" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/witoi/django-featured-objects/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/witoi/django-featured-objects/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h2>Install</h2>
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h2>Installation</h2>
 
-<ul>
-<li>pip install django-featured-objects</li>
-</ul><h2>Configuration</h2>
+<div class="highlight"><pre><span class="nv">$ </span>pip install django-featured-objects
+</pre></div>
+
+<h2>Configuration</h2>
 
 <div class="highlight"><pre>    <span class="c"># add to settings.py</span>
     <span class="n">INSTALLED_APPS</span> <span class="o">+=</span> <span class="p">(</span><span class="s">'featured'</span><span class="p">,)</span>
@@ -45,7 +54,7 @@
     <span class="p">)</span>
 </pre></div>
 
-<h2>Use</h2>
+<h2>Usage</h2>
 
 <p>Go to admin site and add objects by id and content type to featured app.</p>
 
@@ -53,17 +62,22 @@
 
 <p>Fork and pull request, will be added to pypi soon.</p>
       </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">django-featured-objects maintained by <a href="https://github.com/witoi">witoi</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/witoi">witoi</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></small></p>
       </footer>
     </div>
-
-    
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-20560001-6");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
 
   </body>
 </html>
