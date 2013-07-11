@@ -21,10 +21,11 @@ class Category(models.Model):
         return self.slug
 
 
-def get_featured_queryset_for(model, category=None):
+def get_featured_queryset_for(model, category=None, manager=None):
     ct = ContentType.objects.get_for_model(model)
     queryset = Featured.objects.filter(content_type=ct)
     if category:
         queryset = queryset.filter(category=category)
-
-    return model.objects.filter(pk__in=queryset.values('object_id'))
+    if not manager:
+        manager = model.objects
+    return manager.filter(pk__in=queryset)
