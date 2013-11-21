@@ -22,3 +22,7 @@ Django app for making any object featured
         ('app_label', 'model_name'), 
         ('app_label', 'another_model_name')
     )
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/witoi/django-featured-objects/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
